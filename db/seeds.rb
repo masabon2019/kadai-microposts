@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+#不可　2090826
+(1..10).each do |number|
+  User.create(name: 'taro' + number.to_s, email: 'taro@techacademy.jp ' + number.to_s, password: 'taro1234')
+end
