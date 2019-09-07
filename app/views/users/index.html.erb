@@ -2,10 +2,3 @@
 <p>Find me in app/views/users/index.html.erb</p>
 
 <%= render 'users', users: @users %>
-
-<!-- form test -->
-<%= form_with(model: @user, local: true) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit %>
-<% end %>

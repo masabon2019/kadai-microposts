@@ -13,6 +13,12 @@ class User < ApplicationRecord
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverses_of_relationship, source: :user
  
+  #fevorites
+  #self.favorites (自分がお気に入り登録しているfavoriteテーブルのデータ行)
+  has_many :favorites
+  
+  #self.favorite_posts (自分がお気に入り登録しているmicropostのデータ行)
+  has_many :favorite_posts, through: :favorites, source: :micropost
   
   def follow(other_user)
     unless self == other_user
@@ -33,4 +39,22 @@ class User < ApplicationRecord
     Micropost.where(user_id: self.following_ids + [self.id])
   end
   
+  #favorite お気に入り登録をするメソッド
+  def favorite(favorite_post)
+    self.favorites.find_or_create_by(micropost_id: favorite_post[:id])
+  end
+  
+  # お気に入りから外すメソッド
+  def unfavorite(favorite_post)
+    favorite = self.favorites.find_by(micropost_id: favorite_post[:id])
+    favorite.destroy if favorite
+  end
+  
+  def favorite?(micropost)
+    #favorite_postsはmicropostが複数格納された配列
+    #include?メソッドは配列の中から引数で渡されたものと同じものがあるかどうか判別してくれるメソッド
+    #すなわち引数にはmicropostを渡して上げる必要がある
+    self.favorite_posts.include?(micropost)
+  end
+
 end

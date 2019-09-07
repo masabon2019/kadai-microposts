@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
 
     if login(email, password)
       flash[:success] = 'ログインに成功しました。'
+      
+      #user GET /users/:id users#show
       redirect_to @user
     else
       flash.now[:danger] = 'ログインに失敗しました。'
