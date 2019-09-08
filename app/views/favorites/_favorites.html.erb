@@ -9,7 +9,10 @@
         <div>
           <p><%= favorite_post.content %></p>
         </div>
-        
+<!-- favoriteボタン -->
+        <div style="display:inline-block;">
+        <% @micropost = favorite_post %>
+        <%= render 'favorites/favorite_button', micropost: @micropost %> 
       </div>
    </li>
    <% end %>
